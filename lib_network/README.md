@@ -5,12 +5,12 @@
 	基于rxJava2 + retrofit2 + okHttp3 封装实现网络请求，配置化的封装方式，简易的日志打印方式，更加易用
 	Glide4的简单封装，一行代码进行加载网络图片
 ## 使用说明
-###1.添加权限
+### 1.添加权限
    	网络权限
 	<uses-permission android:name="android.permission.INTERNET" />
 	加载本地图片，记得加上SD卡读取权限
 
-###2.证书设置
+### 2.证书设置
     android P及以上使用非HttpS请求，需要进行证书设置.
 	否则会有异常：java.net.UnknownServiceException: CLEARTEXT communication to xx.xxx.xxx.xxx not permitted by network security policy 
 	
@@ -48,7 +48,7 @@
         b.Authorization需要调用NetWorkManager类中initCacheToken()中初始化token值（建议在application初始化中调用）
 		c.没有缓存token值情况下，需要获取token值后，调用 NetWorkManager类中refreshToken()刷新token值
    
-###4.请求使用示例
+### 4.请求使用示例
 #### rxJava + retrofit请求方式
     fun testPost_RxRetrofit() {
 		NetWorkManager.instance
