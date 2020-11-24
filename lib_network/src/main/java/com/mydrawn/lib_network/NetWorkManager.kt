@@ -1,5 +1,6 @@
 package com.mydrawn.lib_network
 
+import android.content.Context
 import com.mydrawn.lib_network.interceptor.CommonInterceptor
 import com.mydrawn.lib_network.interceptor.HeadUrlInterceptor
 import com.mydrawn.lib_network.selfRetrofit.JsonConverterFactory
@@ -7,6 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import java.security.AccessControlContext
 import java.security.SecureRandom
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
@@ -68,7 +70,7 @@ class NetWorkManager {
             .client(okHttpClient)
             .baseUrl(NetWorkConfigs.baseUrl)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) //Rx Java Observable支持
-            .addConverterFactory(JsonConverterFactory.create()) //自定义转换处理
+            .addConverterFactory(JsonConverterFactory()) //自定义转换处理
             .build()
     }
 
@@ -110,5 +112,34 @@ class NetWorkManager {
             e.printStackTrace()
         }
         return null
+    }
+
+    /**
+     * 刷新token值
+     * 用于保存和刷新token
+     */
+    fun refreshToken(context: Context, token: String) {
+        var sp = context.getSharedPreferences(NetWorkConfigs.SP_KEY, Context.MODE_PRIVATE)
+        sp.edit().putString(NetWorkConfigs.SP_KEY_TOKEN, token).commit()
+        NetWorkConfigs.Authorization = token
+    }
+
+    /**
+     * 初始化token值
+     * tip 注意在application中初始化
+     */
+    fun initCacheToken(context: Context) {
+        var sp = context.getSharedPreferences(NetWorkConfigs.SP_KEY, Context.MODE_PRIVATE)
+        var token = sp.getString(NetWorkConfigs.SP_KEY_TOKEN, "")
+        NetWorkConfigs.Authorization = token ?: ""
+    }
+
+    /**
+     * 清除sp
+     */
+    fun clear(context: Context) {
+        var sp = context.getSharedPreferences(NetWorkConfigs.SP_KEY, Context.MODE_PRIVATE)
+        sp.edit().clear()
+        NetWorkConfigs.Authorization = ""
     }
 }

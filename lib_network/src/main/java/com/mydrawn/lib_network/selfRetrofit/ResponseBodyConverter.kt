@@ -13,6 +13,9 @@ import java.io.IOException
 /**
  * Author:drawn
  * Description:解析ResponseBody
+ *      打印响应数据
+ *      抛出非成功异常
+ *      数据解密操作等
  * date:2020/11/20
  */
 class ResponseBodyConverter<T> internal constructor(

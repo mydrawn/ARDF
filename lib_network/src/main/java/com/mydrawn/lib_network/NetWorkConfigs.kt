@@ -1,5 +1,6 @@
 package com.mydrawn.lib_network
 
+import android.content.SharedPreferences
 import com.mydrawn.lib_network.interceptor.HeadUrlInterceptor
 
 /**
@@ -8,6 +9,9 @@ import com.mydrawn.lib_network.interceptor.HeadUrlInterceptor
  * date:2020/11/20
  */
 object NetWorkConfigs {
+
+    const val SP_KEY= "NetWork_SP" //SharedPreferences key名
+    const val SP_KEY_TOKEN= "SP_KEY_TOKEN" //储存token 的key值
 
     /**
      * log 配置

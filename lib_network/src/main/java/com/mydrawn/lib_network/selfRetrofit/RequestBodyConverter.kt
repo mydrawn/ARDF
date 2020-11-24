@@ -17,7 +17,7 @@ import java.nio.charset.Charset
 
 /**
  * Author:drawn
- * Description: RequestBody请求头
+ * Description: RequestBody拦截转换器 一般在这里拦截body数据进行统一的加密或者其他操作
  * date:2020/11/20
  */
 class RequestBodyConverter<T> internal constructor(
@@ -28,7 +28,7 @@ class RequestBodyConverter<T> internal constructor(
 
     companion object {
         private val MEDIA_TYPE: MediaType? =
-            ("application/json;charset=utf-8").toMediaTypeOrNull()
+            NetWorkConfigs.Content_Type.toMediaTypeOrNull()
         private val UTF_8 = Charset.forName("UTF-8")
     }
 

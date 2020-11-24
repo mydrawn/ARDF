@@ -55,6 +55,7 @@ dependencies {
     api rootProject.ext.dependencies["glide4"]
     api rootProject.ext.dependencies["okhttp3-integration"]
     api rootProject.ext.dependencies["glide-transformations"]
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     api rootProject.ext.dependencies["rxjava"]
     api rootProject.ext.dependencies["rxandroid"]

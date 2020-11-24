@@ -15,16 +15,8 @@ import java.lang.reflect.Type
  * Description: 自定义转换器，拦截请求和响应数据，自行转换，添加log或者加解密等 操作
  * date:2020/11/23
  */
-class JsonConverterFactory private constructor(gson: Gson?) :
-    Converter.Factory() {
-    private val mGson: Gson
-
-    init {
-        if (gson == null) {
-            throw NullPointerException("gson == null")
-        }
-        this.mGson = gson
-    }
+class JsonConverterFactory : Converter.Factory() {
+    private val mGson: Gson = Gson()
 
     override fun responseBodyConverter(
         type: Type?, annotations: Array<Annotation?>?,
@@ -43,14 +35,4 @@ class JsonConverterFactory private constructor(gson: Gson?) :
         val adapter: TypeAdapter<*> = mGson.getAdapter(TypeToken.get(type))
         return RequestBodyConverter(mGson, adapter)
     }
-
-    companion object {
-        @JvmOverloads
-        fun create(gson: Gson? = Gson()): JsonConverterFactory {
-            return JsonConverterFactory(
-                gson
-            )
-        }
-    }
-
 }
