@@ -16,4 +16,26 @@ android {
 }
 
 dependencies {
+    //权限申请
+    api rootProject.ext.dependencies["permissionX"]
+
+    //网络请求&图片加载
+    api project(path: ':lib_network')
+
+    //多dex配置
+    api rootProject.ext.dependencies["multidex"]
+
+    //权限申请
+    api rootProject.ext.dependencies["permissionX"]
+
+    //UI 相关库
+    api rootProject.ext.dependencies["constraintlayout"]
+    api rootProject.ext.dependencies["material"]
+    api rootProject.ext.dependencies["recyclerview"]
+
+    //mmkv
+    api rootProject.ext.dependencies["mmkv"]
+
+    //屏幕适配
+    api rootProject.ext.dependencies["autosize"]
 }

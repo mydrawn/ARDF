@@ -17,7 +17,7 @@ object NetWorkConfigs {
      * log 配置
      * @see NetLogUtil.DEBUG
      */
-    const val DEBUG: Boolean = true //是否打印网络请求日志
+    const val DEBUG: Boolean = BuildConfig.BUILD_TYPE == "debug" //是否打印网络请求日志
     const val LOG_TAG = "ARDF_NetWork" //日志标签
 
     /**

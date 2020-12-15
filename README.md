@@ -20,6 +20,7 @@
 ## 四、模块介绍
 ### -app
 	壳模块
+	BluetoothExample包：BLE蓝牙连接测试类
 ### -lib_base
 	基类模块，主要放基类文件，工具库
 ### -lib_network
