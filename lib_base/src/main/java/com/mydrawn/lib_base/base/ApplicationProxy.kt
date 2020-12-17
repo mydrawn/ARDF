@@ -1,10 +1,16 @@
 package com.mydrawn.lib_base.base
 
 import android.app.Application
+import android.content.Context
+import android.graphics.Point
+import android.os.Build
+import android.util.DisplayMetrics
+import android.view.WindowManager
 import androidx.multidex.MultiDexApplication
 import com.alibaba.android.arouter.launcher.ARouter
 import com.mydrawn.lib_base.Log.LogUtils
 import com.mydrawn.lib_base.LogUtilsUtils.CrashHandler
+
 
 /**
  * Author:drawn
@@ -23,6 +29,8 @@ object ApplicationProxy {
             ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         }
         ARouter.init(application); // 尽可能早，推荐在Application中初始化
+
+        getScreenWH(application)
     }
 
     fun onTrimMemory(application: Application, level: Int) {
@@ -52,5 +60,40 @@ object ApplicationProxy {
 
     fun attachBaseContext(baseApplication: Application) {
         LogUtils.d("attachBaseContext")
+    }
+
+
+    /**
+     * 获取屏幕宽高，autoSize 屏幕适配
+     */
+    var mScreenWidth = 0
+    var mScreenHeight = 0
+    fun getScreenWH(application: Application) {
+        var windowManager = (application.getSystemService(Context.WINDOW_SERVICE)) as WindowManager
+        val outPoint = Point()
+        when {
+            Build.VERSION.SDK_INT < 19 -> {
+                // 不可能有虚拟按键
+                windowManager.defaultDisplay.getSize(outPoint)
+                mScreenWidth = outPoint.x
+                mScreenHeight = outPoint.y
+            }
+            Build.VERSION.SDK_INT < 30 -> {
+                // 可能有虚拟按键的情况
+                windowManager.defaultDisplay.getRealSize(outPoint)
+                mScreenWidth = outPoint.x
+                mScreenHeight = outPoint.y
+            }
+            else -> {
+                mScreenWidth = windowManager.currentWindowMetrics.bounds.width()
+                mScreenHeight = windowManager.currentWindowMetrics.bounds.height()
+            }
+        }
+        LogUtils.d("width = $mScreenWidth height = $mScreenHeight")
+        if (mScreenWidth == 0 || mScreenHeight == 0) {
+            mScreenWidth = 320
+            mScreenHeight = 640
+            LogUtils.e("屏幕宽高获取异常，设置默认值 width = $mScreenWidth height = $mScreenHeight")
+        }
     }
 }

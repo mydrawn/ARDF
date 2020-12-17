@@ -13,8 +13,11 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Message
 import android.util.Log
-import android.widget.Toast
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.mydrawn.lib_base.Log.LogUtils
+import com.mydrawn.lib_base.eventBus.RxBus
+import com.mydrawn.lib_base.eventBus.RxEvent
+import com.mydrawn.lib_base.eventBus.RxEventType
 import java.io.IOException
 import java.util.*
 import kotlin.collections.HashSet
@@ -29,7 +32,7 @@ import kotlin.collections.HashSet
 class BpBleReceiverService : Service() {
 
     companion object {
-        const val LOGE_TAG = "BP_BLE"
+        const val LOGE_TAG = LogUtils.LOG_TAG
 
         const val TAG = "BpBleReceiverService"
         const val TAG_EXIT = -1 //退出服务
@@ -46,6 +49,7 @@ class BpBleReceiverService : Service() {
         const val ACTION_BP_DATA = "com.ncmed.bp.data" //获取到血压数据发送的内部广播 action
         const val INTENT_BUNDLE_KEY = "bp_data"//获取到血压数据发送数据 BUNDLE key
     }
+
     private var mBlueToothStateReceiver: BlueToothStateReceiver? = null //蓝牙开关广播
     private var isConnectedDevice = false //是否处于连接中
     private var tryToStartBLE = false //是否尝试开启蓝牙
@@ -145,10 +149,10 @@ class BpBleReceiverService : Service() {
             mBluetoothAdapter.enable()
             return
         }
-        if (!checkBpBlePairing()) {
-            Toast.makeText(this, "设备未配对，请先配对设备", Toast.LENGTH_SHORT).show()
-            return
-        }
+//        if (!checkBpBlePairing()) {
+//            Toast.makeText(this, "设备未配对，请先配对设备", Toast.LENGTH_SHORT).show()
+//            return
+//        }
         if (mCurStatus == STATE_SCANNING) {
             Log.e(LOGE_TAG, "already scan")
             return
@@ -235,6 +239,7 @@ class BpBleReceiverService : Service() {
         if (!deviceList.contains(device.name)) {
             deviceList.add(device.name)
             Log.d(LOGE_TAG, "发现设备:${device.name}")
+            RxBus.post(RxEvent(RxEventType.BLE, device.name))
         }
         if (isBPDevices(device)) {
             if (mBPDevice == null) {
@@ -353,6 +358,14 @@ class BpBleReceiverService : Service() {
                     intent.putExtra(INTENT_BUNDLE_KEY, bundle)
                     //广播通知数据
                     LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent)
+                    RxBus.post(
+                        RxEvent(
+                            RxEventType.BLE_DATA,
+                            "sys = " + bundle.getFloat(ADGattService.KEY_SYSTOLIC) +
+                                    "\ndia = " + bundle.getFloat(ADGattService.KEY_DIASTOLIC) +
+                                    "\npul = " + bundle.getFloat(ADGattService.KEY_PULSE_RATE)
+                        )
+                    )
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }

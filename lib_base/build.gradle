@@ -38,4 +38,7 @@ dependencies {
 
     //屏幕适配
     api rootProject.ext.dependencies["autosize"]
+
+    //工具类库
+    api rootProject.ext.dependencies["androidUtils"]
 }

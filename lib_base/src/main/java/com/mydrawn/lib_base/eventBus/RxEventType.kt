@@ -7,4 +7,6 @@ package com.mydrawn.lib_base.eventBus
  */
 enum class RxEventType {
     TEST, //测试
+    BLE,
+    BLE_DATA
 }

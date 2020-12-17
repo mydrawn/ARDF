@@ -15,6 +15,7 @@ import com.mydrawn.lib_base.eventBus.RxBus
 import com.mydrawn.lib_base.eventBus.RxEvent
 import com.mydrawn.lib_base.eventBus.RxEventType
 import com.permissionx.guolindev.PermissionX
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : BaseActivity() {
@@ -63,10 +64,11 @@ class MainActivity : BaseActivity() {
      * 扫描设备
      */
     fun scan(view: View) {
-//        var intent = Intent(this, BpBleReceiverService::class.java)
-//        intent.putExtra(BpBleReceiverService.TAG, BpBleReceiverService.TAG_START_SCAN)
-//        startService(intent)
-        ARouter.getInstance().build("/test/GuideActivity").navigation()
+        var intent = Intent(this, BpBleReceiverService::class.java)
+        intent.putExtra(BpBleReceiverService.TAG, BpBleReceiverService.TAG_START_SCAN)
+        startService(intent)
+        //ARouter.getInstance().build("/test/GuideActivity").navigation()
+        textView.text = "发现设备："
     }
 
 
@@ -74,10 +76,10 @@ class MainActivity : BaseActivity() {
      *
      */
     fun getData(view: View) {
-//        var intent = Intent(this, BpBleReceiverService::class.java)
-//        intent.putExtra(BpBleReceiverService.TAG, BpBleReceiverService.TAG_AUTO_DATA)
-//        startService(intent)
-        postRxEvent(RxEvent(RxEventType.TEST,"onResume"))
+        var intent = Intent(this, BpBleReceiverService::class.java)
+        intent.putExtra(BpBleReceiverService.TAG, BpBleReceiverService.TAG_AUTO_DATA)
+        startService(intent)
+        // postRxEvent(RxEvent(RxEventType.TEST,"onResume"))
     }
 
 
@@ -98,6 +100,8 @@ class MainActivity : BaseActivity() {
         var intent = Intent(this, BpBleReceiverService::class.java)
         intent.putExtra(BpBleReceiverService.TAG, BpBleReceiverService.TAG_EXIT)
         startService(intent)
+
+        textView.text = ""
     }
 
 
@@ -106,6 +110,13 @@ class MainActivity : BaseActivity() {
             RxEventType.TEST -> {
                 LogUtils.d("onRxEventHandle")
             }
+            RxEventType.BLE -> {
+                textView.text = textView.text.toString() + "\n    " + rxEvent.arg.toString()
+            }
+            RxEventType.BLE_DATA -> {
+                textView1.text = rxEvent.arg.toString()
+            }
+
         }
     }
 }

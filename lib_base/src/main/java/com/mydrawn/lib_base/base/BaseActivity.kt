@@ -3,12 +3,14 @@ package com.mydrawn.lib_base.base
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.blankj.utilcode.util.SizeUtils
 import com.mydrawn.lib_base.Log.LogUtils
 import com.mydrawn.lib_base.eventBus.RxBus
 import com.mydrawn.lib_base.eventBus.RxEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import me.jessyan.autosize.internal.CustomAdapt
 
 /**
  * Author:drawn
@@ -18,7 +20,7 @@ import io.reactivex.schedulers.Schedulers
  *      3.屏幕常量封装
  * Date:2020/12/15
  */
-abstract class BaseActivity : AppCompatActivity(), IActivity {
+abstract class BaseActivity : AppCompatActivity(), IActivity, CustomAdapt {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         LogUtils.d(this.javaClass.simpleName + ": onCreate")
@@ -129,9 +131,24 @@ abstract class BaseActivity : AppCompatActivity(), IActivity {
             mIsRelease = true
         }
     }
+
     /**
      * 释放资源
      */
     abstract fun releaseResources()
+    //***********************资源释放封装****************************
+
+    /**
+     * ***********************屏幕适配封装****************************
+     */
+    override fun isBaseOnWidth(): Boolean {
+        //默认依据宽度百分比适配
+        return true
+    }
+
+    //默认依据当前屏幕尺寸，实际需要根据UI设计尺寸填写
+    override fun getSizeInDp(): Float {
+        return SizeUtils.px2dp(ApplicationProxy.mScreenWidth.toFloat()).toFloat()
+    }
     //***********************资源释放封装****************************
 }
