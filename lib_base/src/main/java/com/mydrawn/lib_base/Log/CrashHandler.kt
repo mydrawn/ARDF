@@ -1,15 +1,11 @@
 package com.mydrawn.lib_base.LogUtilsUtils
 
-import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Environment
 import android.os.Process
-import android.widget.Toast
-import com.mydrawn.lib_base.Log.LogUtils
-import com.mydrawn.lib_network.NetWorkManager
-import com.permissionx.guolindev.PermissionX
+import com.mydrawn.lib_base.Log.ArdfLog
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -56,7 +52,7 @@ class CrashHandler : Thread.UncaughtExceptionHandler {
             //写入后在这里可以进行上传操作
         } catch (e: Exception) {
             e.printStackTrace()
-            LogUtils.e(TAG,"exception writeToSDCard error")
+            ArdfLog.e(TAG,"exception writeToSDCard error")
         }
         //如果系统提供了默认异常处理就交给系统进行处理，否则自己进行处理。
         if (mDefaultCrashHandler != null) {
@@ -84,7 +80,7 @@ class CrashHandler : Thread.UncaughtExceptionHandler {
         val exFile =
             File(PATH + File.separator.toString() + FILE_NAME + time + FILE_NAME_SUFFIX)
         val pw = PrintWriter(BufferedWriter(FileWriter(exFile)))
-        LogUtils.e("Crash:" + exFile.absolutePath)
+        ArdfLog.e("Crash:" + exFile.absolutePath)
         pw.println(time)
         val pm = mContext!!.packageManager
         val pi =

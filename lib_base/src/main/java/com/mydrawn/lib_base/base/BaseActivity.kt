@@ -1,12 +1,16 @@
 package com.mydrawn.lib_base.base
 
+import android.Manifest
+import android.content.Context
 import android.os.Bundle
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.SizeUtils
-import com.mydrawn.lib_base.Log.LogUtils
+import com.mydrawn.lib_base.Log.ArdfLog
 import com.mydrawn.lib_base.eventBus.RxBus
 import com.mydrawn.lib_base.eventBus.RxEvent
+import com.permissionx.guolindev.PermissionX
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -23,7 +27,7 @@ import me.jessyan.autosize.internal.CustomAdapt
 abstract class BaseActivity : AppCompatActivity(), IActivity, CustomAdapt {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        LogUtils.d(this.javaClass.simpleName + ": onCreate")
+        ArdfLog.d(this.javaClass.simpleName + ": onCreate")
         super.onCreate(savedInstanceState)
         if (keepScreenOn()) {
             window.setFlags(
@@ -34,27 +38,27 @@ abstract class BaseActivity : AppCompatActivity(), IActivity, CustomAdapt {
     }
 
     override fun onStart() {
-        LogUtils.d(this.javaClass.simpleName + ": onStart")
+        ArdfLog.d(this.javaClass.simpleName + ": onStart")
         super.onStart()
     }
 
     override fun onRestart() {
-        LogUtils.d(this.javaClass.simpleName + ": onRestart")
+        ArdfLog.d(this.javaClass.simpleName + ": onRestart")
         super.onRestart()
     }
 
     override fun onResume() {
-        LogUtils.d(this.javaClass.simpleName + ": onResume")
+        ArdfLog.d(this.javaClass.simpleName + ": onResume")
         super.onResume()
     }
 
     override fun onPause() {
-        LogUtils.d(this.javaClass.simpleName + ": onPause")
+        ArdfLog.d(this.javaClass.simpleName + ": onPause")
         super.onPause()
     }
 
     override fun onStop() {
-        LogUtils.d(this.javaClass.simpleName + ": onStop")
+        ArdfLog.d(this.javaClass.simpleName + ": onStop")
         super.onStop()
         if (isFinishing) {
             release()
@@ -62,7 +66,7 @@ abstract class BaseActivity : AppCompatActivity(), IActivity, CustomAdapt {
     }
 
     override fun onDestroy() {
-        LogUtils.d(this.javaClass.simpleName + ": onDestroy")
+        ArdfLog.d(this.javaClass.simpleName + ": onDestroy")
         super.onDestroy()
         release()
     }

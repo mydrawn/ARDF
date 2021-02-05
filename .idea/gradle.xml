@@ -13,8 +13,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/app_ncmed" />
             <option value="$PROJECT_DIR$/lib_base" />
+            <option value="$PROJECT_DIR$/lib_ncmedSdk" />
             <option value="$PROJECT_DIR$/lib_network" />
+            <option value="$PROJECT_DIR$/lib_serialport" />
             <option value="$PROJECT_DIR$/module_guide" />
           </set>
         </option>

@@ -25,5 +25,10 @@
         <meta-data
             android:name="notch.config"
             android:value="portrait|landscape" />
+        <service
+            android:name=".appupdate.service.DownloadService"
+            android:enabled="true"
+            android:exported="true" />
+
     </application>
 </manifest>

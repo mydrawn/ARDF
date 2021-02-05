@@ -9,12 +9,20 @@ import com.mydrawn.lib_network.NetLogUtil
  * Description: 负责日志的打印
  * date:2020/12/14
  */
-class LogUtils {
+class ArdfLog {
     companion object {
         const val LOG_TAG = "ARDF_"
         const val LOG_TAG_NETWORK = NetLogUtil.LOG_TAG //网络日志的log
         var isDebug = BuildConfig.BUILD_TYPE == "debug"
 
+
+        fun v(info: String?) {
+            if (isDebug) Log.v(LOG_TAG, getLogInfo() + "$info")
+        }
+
+        fun v(tag: String, info: String?) {
+            if (isDebug) Log.v(LOG_TAG, getLogInfo() + "$tag : $info")
+        }
 
         fun w(info: String?) {
             if (isDebug) Log.w(LOG_TAG, getLogInfo() + "$info")

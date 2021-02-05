@@ -1,5 +1,8 @@
+include ':app_ncmed'
+include ':lib_ncmedSdk'
 include ':module_guide'
 include ':lib_network'
 include ':lib_base'
 include ':app'
+include ':lib_serialport'
 rootProject.name = "ARDF"

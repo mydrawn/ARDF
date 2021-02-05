@@ -1,95 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:context=".MainActivity">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="scan"
-            android:text="开始扫描"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.168" />
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:onClick="getData"
-            android:text="一键获取数据"
-            app:layout_constraintEnd_toEndOf="@+id/button"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/button"
-            app:layout_constraintTop_toBottomOf="@+id/button" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:onClick="connect"
-            android:text="连接"
-            app:layout_constraintEnd_toEndOf="@+id/button"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/button"
-            app:layout_constraintTop_toBottomOf="@+id/button1" />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:onClick="disConnect"
-            android:text="断开连接"
-            app:layout_constraintEnd_toEndOf="@+id/button"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/button"
-            app:layout_constraintTop_toBottomOf="@+id/button2" />
-
-        <TextView
-            android:id="@+id/textView"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:padding="20dp"
-            android:text="发现设备："
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button3" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="收到数据："
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
-        <!-- <LinearLayout
-             android:id="@+id/common_ll_web_js"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:orientation="vertical"
-             app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintHorizontal_bias="0.0"
-             app:layout_constraintStart_toStartOf="parent"
-             app:layout_constraintTop_toBottomOf="@+id/button3" />-->
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="btnClick1"
+                android:text="打开串口"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.168" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:onClick="btnClick2"
+                android:text="关闭串口"
+                app:layout_constraintEnd_toEndOf="@+id/button"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/button"
+                app:layout_constraintTop_toBottomOf="@+id/button" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:onClick="btnClick3"
+                android:text="连接"
+                app:layout_constraintEnd_toEndOf="@+id/button"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/button"
+                app:layout_constraintTop_toBottomOf="@+id/button1" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:onClick="btnClick4"
+                android:text="断开连接"
+                app:layout_constraintEnd_toEndOf="@+id/button"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/button"
+                app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:padding="20dp"
+                android:text="发现设备："
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button3" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="收到数据："
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>
